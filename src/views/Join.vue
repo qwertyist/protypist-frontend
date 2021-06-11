@@ -23,7 +23,7 @@
                 </v-text-field>
               </v-row>
 
-              <v-row> <v-btn elevation="2"> Anslut</v-btn> </v-row>
+              <v-row> <v-btn elevation="2" @click="join"> Anslut</v-btn> </v-row>
             </v-col>
           </v-form>
   </v-container>
@@ -45,5 +45,10 @@ export default {
       ],
     };
   },
+  methods: {
+    join() {
+      this.$router.push("/session/" + this.session.id)
+    }
+  }
 };
 </script>

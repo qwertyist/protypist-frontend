@@ -4,6 +4,7 @@ import Dashboard from '../views/Dashboard.vue'
 import Join from '../views/Join.vue'
 import Settings from '../views/Settings.vue'
 import Help from '../views/Help.vue'
+import Session from '../views/Session.vue'
 Vue.use(VueRouter)
 
 const routes = [
@@ -16,6 +17,11 @@ const routes = [
     path: "/join",
     name: "Anslut",
     component: Join,
+  },
+  {
+    path: "/session/:id",
+    name: "Tolkning",
+    component: Session
   },
   {
     path: "/settings",

@@ -47,7 +47,7 @@ export default {
         font: {
           size: 32,
           family: "Arial",
-          margins: 10,
+          margins: 20,
           colors: 0,
         },
       },
