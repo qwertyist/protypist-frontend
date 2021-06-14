@@ -33,7 +33,7 @@ export default {
   data() {
     return {
       session: {
-        id: "123456",
+        id: "",
         password: "",
       },
       valid: null,

@@ -26,15 +26,16 @@
         <v-icon slot="append" @click="increaseMarginSize"> mdi-plus </v-icon>
         <v-icon slot="append" @click="decreaseMarginSize"> mdi-minus </v-icon>
       </v-text-field>
-        <v-radio-group v-model="settings.font.colors" prepend-icon="mdi-palette">
-          <v-radio
-            v-for="color in colors"
-            :key="color.id"
-            :label="color.label"
-            :value="color.colors"
-            :class="color.class"
-          ></v-radio>
-        </v-radio-group>
+      <v-radio-group v-model="settings.font.colorId" prepend-icon="mdi-palette">
+        <v-radio
+          @click="onColorChange(color.id)"
+          v-for="color in colors"
+          :key="color.id"
+          :label="color.label"
+          :value="color.id"
+          :class="color.class"
+        ></v-radio>
+      </v-radio-group>
     </v-form>
   </v-container>
 </template>
@@ -48,7 +49,8 @@ export default {
           size: 32,
           family: "Arial",
           margins: 20,
-          colors: 0,
+          colorId: 0,
+          colors: { text: "#FFF", bg: "#000" },
         },
       },
       fonts: ["Arial", "Times New Roman", "Roboto"],
@@ -93,7 +95,6 @@ export default {
     };
   },
   methods: {
-
     increaseFontSize() {
       this.settings.font.size += 5;
     },
@@ -106,13 +107,38 @@ export default {
     decreaseMarginSize() {
       this.settings.font.margins -= 5;
     },
+    onColorChange(id) {
+      this.settings.font.colors = this.colors[id].colors
+}
+  },
+  mounted() {
+    try {
+      let settings = localStorage.getItem("settings");
+      console.log("localStorage:", settings);
+      if (settings == null) {
+        console.log("saving default settings");
+        localStorage.setItem("settings", JSON.stringify(this.settings));
+      } else {
+        this.settings = JSON.parse(settings);
+      }
+    } catch (err) {
+      console.log("No saved settings");
+      localStorage.setItem("settings", JSON.stringify(this.settings));
+    }
+  },
+  beforeDestroy() {
+    try {
+      localStorage.setItem("settings", JSON.stringify(this.settings));
+    } catch (err) {
+      alert("Kunde inte spara dina inställningar");
+    }
   },
 };
 </script>
 
 <style scoped>
 .v-radio /deep/ label {
-    padding: 0.5rem;
+  padding: 0.5rem;
 }
 .white-on-black /deep/ label {
   color: #fff;

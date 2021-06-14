@@ -1,19 +1,9 @@
 <template>
   <v-app>
-    <v-navigation-drawer v-model="sidebar" app>
-      <v-list
-        nav
-        dense
-      >
-        <v-list-item-group
-          v-model="selectedItem"
-          color="primary"
-        >
-          <v-list-item
-            v-for="(item, i) in menuItems"
-            :key="i"
-            :to="item.path"
-          >
+    <v-navigation-drawer v-model="sidebar" app temporary>
+      <v-list nav dense>
+        <v-list-item-group v-model="selectedItem" color="primary">
+          <v-list-item v-for="(item, i) in menuItems" :key="i" :to="item.path">
             <v-list-item-icon>
               <v-icon v-text="item.icon"></v-icon>
             </v-list-item-icon>
@@ -27,13 +17,21 @@
     </v-navigation-drawer>
 
     <v-app-bar app>
-      <span class="hidden-sm-and-up">
+      <span class="hidden-md-and-up">
         <v-app-bar-nav-icon @click="sidebar = !sidebar"> </v-app-bar-nav-icon>
       </span>
       <v-toolbar-title>
-        <router-link to="/" style="cursor: pointer" class="text-uppercase header" custom v-slot="{ navigate }">
-          <span @click="navigate" @keypress.enter="navigate" role="link">Skrivtolkning
-          <span class="font-weight-thin">På distans</span></span>
+        <router-link
+          to="/"
+          style="cursor: pointer"
+          class="text-uppercase header"
+          custom
+          v-slot="{ navigate }"
+        >
+          <span @click="navigate" @keypress.enter="navigate" role="link"
+            >Skrivtolkning
+            <span class="font-weight-thin">På distans</span></span
+          >
         </router-link>
       </v-toolbar-title>
       <v-spacer></v-spacer>
@@ -68,5 +66,8 @@ export default {
       ],
     };
   },
+  mounted() {
+
+  }
 };
 </script>
